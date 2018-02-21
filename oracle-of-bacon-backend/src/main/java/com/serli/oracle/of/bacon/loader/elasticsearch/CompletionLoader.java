@@ -37,6 +37,7 @@ public class CompletionLoader {
         }
 
         String inputFilePath = args[0];
+        // Custom class to empty the bulk inside a lambda expression
         BulkHelper bulker = new BulkHelper();
 
         try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(inputFilePath))) {
@@ -46,6 +47,8 @@ public class CompletionLoader {
                     .forEach(line -> {
                         count.incrementAndGet();
                         bulker.add(count.get(), line.substring(1, line.length()-1));
+
+                        // To aovid error java heap space
                         if (count.get() % 100000 == 0) {
                             try {
                                 bulker.execute(client);
@@ -53,6 +56,7 @@ public class CompletionLoader {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            // To track the for loop
                             System.out.println(count.get());
                         }
                     });

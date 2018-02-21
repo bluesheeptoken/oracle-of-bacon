@@ -11,8 +11,10 @@ import static com.mongodb.client.model.Filters.eq;
 
 import java.util.Optional;
 
-/*On importe la collection actors dans mongodb avec la commande suivante:
-mongoimport --db bacon --collection actors --type csv --file "~\imdb-data\actors.csv" --headerline*/
+/*
+On importe la collection actors dans mongodb avec la commande suivante:
+mongoimport --db bacon --collection actors --type csv --file [path to actors file] --headerline
+*/
 
 public class MongoDbRepository {
     private final MongoCollection<Document> actorCollection;
@@ -29,7 +31,6 @@ public class MongoDbRepository {
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
-
-		return json;
+        return json;
     }
 }

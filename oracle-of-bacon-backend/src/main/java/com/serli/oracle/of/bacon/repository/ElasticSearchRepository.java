@@ -32,17 +32,22 @@ public class ElasticSearchRepository {
     }
 
     public List<String> getActorsSuggests(String searchQuery) throws IOException {
+        // Create SearchRequest on index actors
         SearchRequest searchRequest = new SearchRequest("actors");
+        // Return only actor type, not meaningful here
         searchRequest.types("actor");
 
+        // Create a match query
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchQuery("name", searchQuery));
         searchRequest.source(searchSourceBuilder);
 
+        // Get synchronous result
         SearchResponse searchResponse = client.search(searchRequest);
         SearchHits hits = searchResponse.getHits();
         SearchHit[] searchHits = hits.getHits();
 
+        // Convert result into an ArrayList<String>
         List<String> result = new ArrayList<String>();
         for (SearchHit hit : searchHits) {
             result.add((String) hit.getSourceAsMap().get("name"));

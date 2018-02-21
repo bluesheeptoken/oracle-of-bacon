@@ -26,6 +26,4 @@ public class BulkHelper {
     public void execute(RestHighLevelClient client) throws IOException {
         client.bulk(bulk);
     }
-
-
 }

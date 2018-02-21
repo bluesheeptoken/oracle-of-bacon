@@ -24,19 +24,23 @@ public class Neo4JRepository {
     private final Driver driver;
 
     public Neo4JRepository() {
+        // Change password to your password
         this.driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "hello"));
     }
 
     public List<?> getConnectionsToKevinBacon(String actorName) {
         Session session = driver.session();
 
+        // Create request
         Statement statement = new Statement("MATCH (Bacon {name:\"Bacon, Kevin (I)\"}) MATCH (TargetActor {name:\""
                 + actorName + "\"}) MATCH p = shortestPath((Bacon)-[:PLAYED_IN*]-(TargetActor)) RETURN nodes(p), relationships(p)");
+        // Get result
         StatementResult result = session.run(statement);
         Record record = result.single();
         Iterable<Value> nodes = record.get(0).values();
         Iterable<Value> relationships = record.get(1).values();
 
+        // Concatenate result into an ArrayList
         List<GraphItem> r = new ArrayList<>();
         
         for (Value v: nodes) {
