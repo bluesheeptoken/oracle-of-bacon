@@ -19,5 +19,8 @@ dependencies {
     compile 'org.mongodb:mongodb-driver:3.4.1'
     compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.1.2'
     compile 'redis.clients:jedis:2.9.0'
+    compile group: 'org.neo4j', name: 'neo4j-graphdb-api', version: '3.3.3'
+    compile group: 'org.neo4j', name: 'neo4j-cypher', version: '3.3.3'
+    compile group: 'org.apache.struts', name: 'struts2-core', version: '2.0.12'
     testCompile 'junit:junit:4.12'
 }
