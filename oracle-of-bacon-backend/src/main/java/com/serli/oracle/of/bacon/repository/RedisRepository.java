@@ -16,9 +16,13 @@ public class RedisRepository {
     }
 
     public void putSearch(String value) {
+        // Delete duplication
+        jedis.lrem("lastTenSearches", -1, value);
+        // Limit to 10 the top searches
         if (this.getLastTenSearches().size() >= 10){
             jedis.rpop("lastTenSearches");
         }
+        // Add the last research
         jedis.lpush("lastTenSearches", value);
 }
 }
