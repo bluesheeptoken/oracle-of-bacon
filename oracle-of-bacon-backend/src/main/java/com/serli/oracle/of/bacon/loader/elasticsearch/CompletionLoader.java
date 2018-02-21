@@ -45,7 +45,7 @@ public class CompletionLoader {
                     .skip(1)
                     .forEach(line -> {
                         count.incrementAndGet();
-                        bulker.add(count.get(), line);
+                        bulker.add(count.get(), line.substring(1, line.length()-1));
                         if (count.get() % 100000 == 0) {
                             try {
                                 bulker.execute(client);
