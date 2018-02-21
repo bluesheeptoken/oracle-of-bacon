@@ -36,6 +36,7 @@ public class APIEndPoint {
         }
         
         result = result.substring(0, result.length()-2) + "]";
+        redisRepository.putSearch(actorName);
 
         return result;
     }
@@ -51,11 +52,7 @@ public class APIEndPoint {
 
     @Get("last-searches")
     public List<String> last10Searches() {
-        return Arrays.asList("Peckinpah, Sam",
-                "Robbins, Tim (I)",
-                "Freeman, Morgan (I)",
-                "De Niro, Robert",
-                "Pacino, Al (I)");
+        return redisRepository.getLastTenSearches();
     }
 
     @Get("actor?name=:actorName")
